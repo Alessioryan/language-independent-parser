@@ -26,6 +26,38 @@ def add_word_initial_morpheme(morpheme, word):
     return morpheme["form"] + word
 
 
+# Returns true iff the sequence internally has correct agreements
+def validate_agreements(sequence):
+    # Iterate over all morphemes
+    for morpheme in sequence:
+        agreements = morpheme["agreements"]
+        # If there are no agreements, continue
+        if not agreements:
+            continue
+        # Otherwise, for each agreement, confirm that it's valid
+        for agreement in agreements:
+            agreement_property = agreement[0]
+            agreement_slot = agreement[1]
+            agreed_morpheme = find_morpheme_from_slot(sequence, agreement_slot)
+
+            # Ensure that the agreed_morpheme has the properties required
+            if agreement_property not in agreed_morpheme["properties"]:
+                return False
+
+    # If there are no contradictions, return true
+    return True
+
+
+# Returns the morpheme from the sequence of the given slot (string), or None otherwise
+# Pre: there is at most one morpheme in sequence belonging to slot
+def find_morpheme_from_slot(sequence, slot):
+    for morpheme in sequence:
+        if morpheme["slot"] == "slot":
+            return morpheme
+    else:
+        return None
+
+
 class Parser:
 
     # Creates a Parser object based on the input file
@@ -118,13 +150,18 @@ class Parser:
                 print("The slot ", morpheme_slot, " is invalid. Please choose between ", str(self.get_slot_list()))
                 is_valid = False
 
-            # Sanity check: agreements to a slot, and morpheme_agreements splitting
+            # Sanity check: agreements to a slot, doesn't agree with itself, and morpheme_agreements splitting
             morpheme_agreements = []
-            if not preproc_morpheme_agreements:  # If there is anything to actually parse
+            if preproc_morpheme_agreements:  # If there is anything to actually parse
                 for preproc_morpheme_agreement in preproc_morpheme_agreements:
                     morpheme_agreement = preproc_morpheme_agreement.split("-")
+                    # One agreement to one slot
                     if len(morpheme_agreement) != 2:
                         print("Each agreement should agree with exactly one slot, separated by '-'.")
+                        is_valid = False
+                    # Doesn't agree with itself
+                    if morpheme_agreement[1] == morpheme_slot:
+                        print("You can't specify a morpheme to agree with itself. You might be thinking of a property.")
                         is_valid = False
                     morpheme_agreements.append(morpheme_agreement)
 
@@ -192,13 +229,43 @@ class Parser:
                         input_word = add_word_initial_morpheme(morpheme, input_word)
                         slot_index -= 1
 
+    # Returns true or false depending on whether a sequence is valid
+    def is_valid(self, sequence):
+        # Validate that all required slots are filled
+        # Validating each slot is filled at most once is not necessary thanks to the dfs slot_index += 1 each iteration
+        if not self.validate_slots_filled(sequence):
+            return False
+
+        # Validate that all agreements are satisfied
+        if not validate_agreements(sequence):
+            return False
+
+        return True
+
+    # Returns true iff all the required slots are filled
+    def validate_slots_filled(self, sequence):
+        # Find all the required slots
+        required_slots = set()
+        for slot in self.slots:
+            if slot["is_required"]:
+                required_slots.add(slot["slot"])
+
+        # Confirm they're all filled
+        for morpheme in sequence:
+            required_slots.discard(morpheme["slot"])
+
+        return len(required_slots) == 0
+
 
 def main():
     # Open the parser object
     parser = Parser("Languages/italian.txt")
 
     # Add to it
-    sequences = parser.find_sequences("amo")
+    # parser.add_morphemes()
+
+    # Find the sequences
+    sequences = parser.find_sequences("amano")
     print("Your sequences are ", sequences)
 
     # Close/update the file
