@@ -1,0 +1,1 @@
+["italian", ["vroot", "sfx"], {"vroot": [{"form": "am", "slot": "vroot", "properties": ["c1"], "agreements": [], "gloss": "love"}], "sfx": [{"form": "o", "slot": "sfx", "properties": [""], "agreements": [], "gloss": "1sg.prs.ind"}, {"form": "i", "slot": "sfx", "properties": [""], "agreements": [], "gloss": "2sg.prs.ind"}]}]
