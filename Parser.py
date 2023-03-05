@@ -32,7 +32,7 @@ def validate_agreements(sequence):
     for morpheme in sequence:
         agreements = morpheme["agreements"]
         # If there are no agreements, continue
-        if not agreements:
+        if not len(agreements):
             continue
         # Otherwise, for each agreement, confirm that it's valid
         for agreement in agreements:
@@ -52,7 +52,7 @@ def validate_agreements(sequence):
 # Pre: there is at most one morpheme in sequence belonging to slot
 def find_morpheme_from_slot(sequence, slot):
     for morpheme in sequence:
-        if morpheme["slot"] == "slot":
+        if morpheme["slot"] == slot:
             return morpheme
     else:
         return None
@@ -61,6 +61,17 @@ def find_morpheme_from_slot(sequence, slot):
 class Parser:
 
     # Creates a Parser object based on the input file
+    # JSON file contains: language name (string)
+    # list of slots, each slot is {"slot": string, "is_required": boolean}
+    # map of morphemes, {"slot": [] }
+    #       in each list, we have:
+    # morpheme = {
+    #                 "form": string,
+    #                 "slot": string,
+    #                 "properties": [string, string, ...],
+    #                 "agreements": [[string(property), string(slot)], [string(property), string(slot)], ...],
+    #                 "gloss": string
+    #             }
     def __init__(self, file_name):
         # Open the file
         self.file_name = file_name
@@ -115,7 +126,7 @@ class Parser:
                     "slot": slot.strip("!"),
                     "is_required": slot[-1] == '!'
                 })
-                self.morphemes[slot] = []
+                self.morphemes[slot.strip("!")] = []
 
         # Add morphemes
         print("MORPHEMES")
@@ -152,7 +163,7 @@ class Parser:
 
             # Sanity check: agreements to a slot, doesn't agree with itself, and morpheme_agreements splitting
             morpheme_agreements = []
-            if preproc_morpheme_agreements:  # If there is anything to actually parse
+            if preproc_morpheme_agreements[0]:  # If there is anything to actually parse
                 for preproc_morpheme_agreement in preproc_morpheme_agreements:
                     morpheme_agreement = preproc_morpheme_agreement.split("-")
                     # One agreement to one slot
@@ -180,6 +191,7 @@ class Parser:
             print("You just added ", str(morpheme))
 
             self.morphemes[morpheme_slot].append(morpheme)
+        print("Finished adding morphemes.\n")
 
     # Returns a list with all the slot names
     def get_slot_list(self):
@@ -197,7 +209,7 @@ class Parser:
                 json.dump((self.language, self.slots, self.morphemes), file_descriptor)
             print("Successfully closed file")
 
-    # Given a word, returns a set containing morpheme sequences stored in a list
+    # Given a word, returns a list containing morpheme sequences stored in a list
     # The morpheme sequences may not be grammatically valid, but would match the regex of the morphemes
     def find_sequences(self, input_word):
         current_sequence = []
@@ -256,6 +268,19 @@ class Parser:
 
         return len(required_slots) == 0
 
+    # Returns a list containing valid morpheme sequences given an input_word
+    def parse(self, input_word):
+        # Find the sequences
+        sequences = self.find_sequences(input_word)
+
+        # Filter all the sequences
+        valid_sequences = []
+        for sequence in sequences:
+            if self.is_valid(sequence):
+                valid_sequences.append(sequence)
+
+        return valid_sequences
+
 
 def main():
     # Open the parser object
@@ -265,8 +290,8 @@ def main():
     # parser.add_morphemes()
 
     # Find the sequences
-    sequences = parser.find_sequences("amano")
-    print("Your sequences are ", sequences)
+    parses = parser.parse("amo")
+    print("Your sequences are ", parses)
 
     # Close/update the file
     parser.update_file()
