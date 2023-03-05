@@ -17,7 +17,8 @@ class Parser:
             self.slots = contents[1]
             self.morphemes = contents[2]
             print("Successfully loaded file ", self.file_name, " for the language: ", self.language)
-            print("Loaded slots: ", self.slots, ", for a total of", self.count_morphemes(), "morphemes.\n")
+            print(len(self.slots), "slots: ", str(self.slots) )
+            print(self.count_morphemes(), "morphemes: \n", str(self.morphemes) )  # Temporary
         except JSONDecodeError:
             print("The file didn't exist or wasn't formatted properly, so a new one was made for you.")
             print("If this was a mistake, exit the program now. Otherwise, your file will be overwritten.\n")
@@ -25,6 +26,7 @@ class Parser:
             self.slots = []
             self.morphemes = {}
 
+        print()
         file.close()
 
     # Count the total number of morphemes in this Parser instance
@@ -38,16 +40,26 @@ class Parser:
     def add_morphemes(self):
         # Require a language name and slots if they're not present
         if not self.language:
-            self.language = input("Please enter the name of the language: ")
+            print("NAME")
+            self.language = input("Please enter the name of the language:\n")
+            print()
         if not self.slots:
             # Assumes no duplicates
-            slots_input = input("Please enter the comma separated slots of the PoS you're glossing (no spaces): \n")
-            self.slots = slots_input.split(",")
+            print("SLOTS")
+            print("Please enter the comma separated slots of the PoS you're glossing (no spaces).")
+            slots_input = input("Any required verb slot should be followed by '!'.\n")
+            print()
+
             # If it doesn't have any slots, then that means that it doesn't have any self.morphemes structure
-            for slot in self.slots:
+            for slot in slots_input.split(","):
+                self.slots.append({
+                    "slot": slot.strip("!"),
+                    "is_required": slot[-1] == '!'
+                })
                 self.morphemes[slot] = []
 
         # Add morphemes
+        print("MORPHEMES")
         print("You'll now add morphemes until you tell the program to stop.")
         print("Each allomorph and morpheme belonging to a different class should be entered separately.")
         print("Don't include spaces in your answer. Only include ',', '/', and '-' as directed.")
@@ -75,8 +87,8 @@ class Parser:
             morpheme_gloss = morpheme_characteristics[4]
 
             # Sanity check: valid slot
-            if morpheme_slot not in self.slots:
-                print("The slot ", morpheme_slot, " is invalid. Please choose between ", str(self.slots))
+            if morpheme_slot not in self.get_slot_list():
+                print("The slot ", morpheme_slot, " is invalid. Please choose between ", str(self.get_slot_list() ) )
                 is_valid = False
 
             # Sanity check: agreements to a slot, and morpheme_agreements splitting
@@ -104,6 +116,13 @@ class Parser:
             print("You just added ", str(morpheme))
 
             self.morphemes[morpheme_slot].append(morpheme)
+
+    # Returns a list with all the slot names
+    def get_slot_list(self):
+        slot_list = []
+        for slot in self.slots:
+            slot_list.append(slot["slot"])
+        return slot_list
 
     # Give a command to write all the information to the json file
     def update_file(self):
