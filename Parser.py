@@ -2,6 +2,30 @@ import json
 from json import JSONDecodeError
 
 
+# Helper dfs method, returns true iff the morpheme
+def check_morpheme_word_match(morpheme, word):
+    # Check that the morpheme is at least as long as the word
+    if len(morpheme["form"]) > len(word):
+        return False
+
+    # Check that the morpheme fits at the start of the word
+    start_of_word = word[0: len(morpheme["form"])]
+    return morpheme["form"] == start_of_word
+
+
+# Helper dfs method, removes the form of the morpheme from the start of the word
+def delete_word_initial_morpheme(morpheme, word):
+    # Sanity check, assert that we are allowed to remove this from the start of the word
+    assert word[0: len(morpheme["form"])] == morpheme["form"]
+
+    return word[len(morpheme["form"]): ]
+
+
+# Helper dfs method, (re)adds the form of the morpheme from the start of the word
+def add_word_initial_morpheme(morpheme, word):
+    return morpheme["form"] + word
+
+
 class Parser:
 
     # Creates a Parser object based on the input file
@@ -12,13 +36,13 @@ class Parser:
 
         # Collect the objects from the file and read/initialize the contents
         try:
-            contents = json.loads(file.read() )
+            contents = json.loads(file.read())
             self.language = contents[0]
             self.slots = contents[1]
             self.morphemes = contents[2]
             print("Successfully loaded file ", self.file_name, " for the language: ", self.language)
-            print(len(self.slots), "slots: ", str(self.slots) )
-            print(self.count_morphemes(), "morphemes: \n", str(self.morphemes) )  # Temporary
+            print(len(self.slots), "slots: ", str(self.slots))
+            print(self.count_morphemes(), "morphemes: \n", str(self.morphemes))  # Temporary
         except JSONDecodeError:
             print("The file didn't exist or wasn't formatted properly, so a new one was made for you.")
             print("If this was a mistake, exit the program now. Otherwise, your file will be overwritten.\n")
@@ -28,6 +52,7 @@ class Parser:
 
         print()
         file.close()
+        self.changes_made = False
 
     # Count the total number of morphemes in this Parser instance
     def count_morphemes(self):
@@ -38,6 +63,8 @@ class Parser:
 
     # Allow the user to add morphemes
     def add_morphemes(self):
+        self.changes_made = True
+
         # Require a language name and slots if they're not present
         if not self.language:
             print("NAME")
@@ -47,7 +74,7 @@ class Parser:
             # Assumes no duplicates
             print("SLOTS")
             print("Please enter the comma separated slots of the PoS you're glossing (no spaces).")
-            slots_input = input("Any required verb slot should be followed by '!'.\n")
+            slots_input = input("Any required slot should be followed by '!'.\n")
             print()
 
             # If it doesn't have any slots, then that means that it doesn't have any self.morphemes structure
@@ -88,7 +115,7 @@ class Parser:
 
             # Sanity check: valid slot
             if morpheme_slot not in self.get_slot_list():
-                print("The slot ", morpheme_slot, " is invalid. Please choose between ", str(self.get_slot_list() ) )
+                print("The slot ", morpheme_slot, " is invalid. Please choose between ", str(self.get_slot_list()))
                 is_valid = False
 
             # Sanity check: agreements to a slot, and morpheme_agreements splitting
@@ -126,10 +153,44 @@ class Parser:
 
     # Give a command to write all the information to the json file
     def update_file(self):
-        # Open the file
-        with open(self.file_name, 'w') as file_descriptor:
-            json.dump((self.language, self.slots, self.morphemes), file_descriptor)
-        print("Successfully closed file")
+        # Only update the file if changes were made
+        if self.changes_made:
+            # Open the file
+            with open(self.file_name, 'w') as file_descriptor:
+                json.dump((self.language, self.slots, self.morphemes), file_descriptor)
+            print("Successfully closed file")
+
+    # Given a word, returns a set containing morpheme sequences stored in a list
+    # The morpheme sequences may not be grammatically valid, but would match the regex of the morphemes
+    def find_sequences(self, input_word):
+        current_sequence = []
+        valid_sequences = []
+        self.helper_find_sequences(input_word, current_sequence, valid_sequences, 0)
+        return valid_sequences
+
+    # Helper method to find_sequences for dfs
+    def helper_find_sequences(self, input_word, current_sequence, valid_combinations, slot_index):
+        # If we finished parsing the word, and we're at the final slot, we can add the word to combinations
+        if slot_index == len(self.slots):
+            if not input_word:
+                valid_combinations.append(list(current_sequence) )
+        else:  # Otherwise, we search through all the morphemes at the given slot_index, and dfs them
+            current_slot = self.slots[slot_index]["slot"]
+            for morpheme in self.morphemes[current_slot]:  # For all morphemes in the current slot
+                if morpheme["slot"] == self.slots[slot_index]["slot"]:  # If the slot agrees with the slot
+                    if check_morpheme_word_match(morpheme, input_word):  # If the morpheme fits
+                        # Process the morpheme and input_word, and adjust slot_index accordingly
+                        current_sequence.append(morpheme)
+                        input_word = delete_word_initial_morpheme(morpheme, input_word)
+                        slot_index += 1
+
+                        # dfs
+                        self.helper_find_sequences(input_word, current_sequence, valid_combinations, slot_index)
+
+                        # Deprocess all the changed variables
+                        current_sequence.pop()
+                        input_word = add_word_initial_morpheme(morpheme, input_word)
+                        slot_index -= 1
 
 
 def main():
@@ -137,7 +198,8 @@ def main():
     parser = Parser("Languages/italian.txt")
 
     # Add to it
-    parser.add_morphemes()
+    sequences = parser.find_sequences("amo")
+    print("Your sequences are ", sequences)
 
     # Close/update the file
     parser.update_file()
