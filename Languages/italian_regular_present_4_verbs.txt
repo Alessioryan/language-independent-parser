@@ -1,0 +1,205 @@
+["italian", [{
+		"slot": "vroot",
+		"is_required": true
+	}, {
+		"slot": "sfx",
+		"is_required": true
+	}],
+	[{
+			"form": "am",
+			"slot": "vroot",
+			"properties": ["cl1"],
+			"agreements": [],
+			"gloss": "love"
+		},
+		{
+			"form": "prend",
+			"slot": "vroot",
+			"properties": ["cl2"],
+			"agreements": [],
+			"gloss": "take"
+		},
+		{
+			"form": "dorm",
+			"slot": "vroot",
+			"properties": ["cl3","cl3a"],
+			"agreements": [],
+			"gloss": "sleep"
+		},
+		{
+			"form": "fin",
+			"slot": "vroot",
+			"properties": ["cl3","cl3b"],
+			"agreements": [],
+			"gloss": "finish"
+		},
+		{
+			"form": "o",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl1","vroot"]],
+			"gloss": "1sg.prs.ind"
+		},
+		{
+			"form": "i",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl1","vroot"]],
+			"gloss": "2sg.prs.ind"
+		},
+		{
+			"form": "a",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl1","vroot"]],
+			"gloss": "3sg.prs.ind"
+		},
+		{
+			"form": "iamo",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl1","vroot"]],
+			"gloss": "1pl.prs.ind"
+		},
+		{
+			"form": "ate",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl1","vroot"]],
+			"gloss": "2pl.prs.ind"
+		},
+		{
+			"form": "ono",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl1","vroot"]],
+			"gloss": "3pl.prs.ind"
+		},
+		{
+			"form": "o",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl2","vroot"]],
+			"gloss": "1sg.prs.ind"
+		},
+		{
+			"form": "i",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl2","vroot"]],
+			"gloss": "2sg.prs.ind"
+		},
+		{
+			"form": "e",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl2","vroot"]],
+			"gloss": "3sg.prs.ind"
+		},
+		{
+			"form": "iamo",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl2","vroot"]],
+			"gloss": "1pl.prs.ind"
+		},
+		{
+			"form": "ete",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl2","vroot"]],
+			"gloss": "2pl.prs.ind"
+		},
+		{
+			"form": "ono",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl2","vroot"]],
+			"gloss": "3pl.prs.ind"
+		},
+		{
+			"form": "o",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl3a","vroot"]],
+			"gloss": "1sg.prs.ind"
+		},
+		{
+			"form": "i",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl3a","vroot"]],
+			"gloss": "2sg.prs.ind"
+		},
+		{
+			"form": "e",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl3a","vroot"]],
+			"gloss": "3sg.prs.ind"
+		},
+		{
+			"form": "iamo",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl3a","vroot"]],
+			"gloss": "1pl.prs.ind"
+		},
+		{
+			"form": "ite",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl3a","vroot"]],
+			"gloss": "2pl.prs.ind"
+		},
+		{
+			"form": "ono",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl3a","vroot"]],
+			"gloss": "3pl.prs.ind"
+		},
+		{
+			"form": "isco",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl3b","vroot"]],
+			"gloss": "1sg.prs.ind"
+		},
+		{
+			"form": "isci",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl3b","vroot"]],
+			"gloss": "2sg.prs.ind"
+		},
+		{
+			"form": "isce",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl3b","vroot"]],
+			"gloss": "3sg.prs.ind"
+		},
+		{
+			"form": "iamo",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl3b","vroot"]],
+			"gloss": "1pl.prs.ind"
+		},
+		{
+			"form": "ite",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl3b","vroot"]],
+			"gloss": "2pl.prs.ind"
+		},
+		{
+			"form": "iscono",
+			"slot": "sfx",
+			"properties": [],
+			"agreements": [["cl3b","vroot"]],
+			"gloss": "3pl.prs.ind"
+		}
+	]
+]

@@ -1,3 +1,4 @@
+import io
 import json
 from json import JSONDecodeError
 
@@ -58,13 +59,49 @@ def find_morpheme_from_slot(sequence, slot):
         return None
 
 
+# Optional safety check to avoid overwriting a txt file
+def confirm_successful_loading():
+    if input("Please press enter to confirm that you want to proceed, or any key to terminate."):
+        raise RuntimeError("Process terminated by user.")
+    print()
+
+
+# Prints each sequence individually
+def print_sequences(input_word, sequences, show_agreement_info):
+    if not len(sequences):
+        print("There are no parses for the word", input_word, "\n")
+        return
+
+    information = "The word " + input_word + " has " + str(len(sequences) ) + " possible parse"
+    information += ("s" if len(sequences) != 1 else "") + ":"
+    print(information)
+    for sequence in sequences:
+        print_sequence(sequence, show_agreement_info)
+    print()
+
+
+# Prints out a morpheme sequence
+def print_sequence(sequence, show_agreement_info):
+    morpheme_breakdown = ""
+    morpheme_glosses = ""
+    for morpheme in sequence:
+        # If null morpheme (or only present to fill slot), skip
+        if not morpheme["form"] and not morpheme["gloss"]:
+            continue
+
+        # Otherwise, add it to what we print
+        morpheme_breakdown += morpheme["form"] + "-"
+        morpheme_glosses += morpheme["gloss"] + (str(morpheme["properties"]) if show_agreement_info else "") + "-"
+    print(morpheme_breakdown.strip("-") )
+    print(morpheme_glosses.strip("-").replace("[]", "").replace("'", "") )
+
+
 class Parser:
 
     # Creates a Parser object based on the input file
     # JSON file contains: language name (string)
     # list of slots, each slot is {"slot": string, "is_required": boolean}
-    # map of morphemes, {"slot": [] }
-    #       in each list, we have:
+    # list of morphemes, where each morpheme is of the form
     # morpheme = {
     #                 "form": string,
     #                 "slot": string,
@@ -75,7 +112,10 @@ class Parser:
     def __init__(self, file_name):
         # Open the file
         self.file_name = file_name
-        file = open(file_name, "r")
+        try:
+            file = open(file_name, "r")
+        except FileNotFoundError:
+            file = open(file_name, "x")
 
         # Collect the objects from the file and read/initialize the contents
         try:
@@ -86,12 +126,18 @@ class Parser:
             print("Successfully loaded file ", self.file_name, " for the language: ", self.language)
             print(len(self.slots), "slots: ", str(self.slots))
             print(self.count_morphemes(), "morphemes: \n", str(self.morphemes))  # Temporary
-        except JSONDecodeError:
-            print("The file didn't exist or wasn't formatted properly, so a new one was made for you.")
+        except JSONDecodeError:  # Bad formatting
+            print("The file wasn't formatted properly, so a new one was made for you.")
             print("If this was a mistake, exit the program now. Otherwise, your file will be overwritten.\n")
             self.language = ""
             self.slots = []
-            self.morphemes = {}
+            self.morphemes = []
+        except io.UnsupportedOperation:  # No file with that name
+            print("The file didn't exist, so a new one was made for you.")
+            print("If this was a mistake, exit the program now. Otherwise, your file will be overwritten.\n")
+            self.language = ""
+            self.slots = []
+            self.morphemes = []
 
         print()
         file.close()
@@ -99,10 +145,7 @@ class Parser:
 
     # Count the total number of morphemes in this Parser instance
     def count_morphemes(self):
-        count = 0
-        for slot in self.morphemes:
-            count += len(self.morphemes[slot])
-        return count
+        return len(self.morphemes)
 
     # Allow the user to add morphemes
     def add_morphemes(self):
@@ -126,7 +169,6 @@ class Parser:
                     "slot": slot.strip("!"),
                     "is_required": slot[-1] == '!'
                 })
-                self.morphemes[slot.strip("!")] = []
 
         # Add morphemes
         print("MORPHEMES")
@@ -190,7 +232,8 @@ class Parser:
             }
             print("You just added ", str(morpheme))
 
-            self.morphemes[morpheme_slot].append(morpheme)
+            self.morphemes.append(morpheme)
+
         print("Finished adding morphemes.\n")
 
     # Returns a list with all the slot names
@@ -224,8 +267,7 @@ class Parser:
             if not input_word:
                 valid_combinations.append(list(current_sequence) )
         else:  # Otherwise, we search through all the morphemes at the given slot_index, and dfs them
-            current_slot = self.slots[slot_index]["slot"]
-            for morpheme in self.morphemes[current_slot]:  # For all morphemes in the current slot
+            for morpheme in self.morphemes:  # For all morphemes in the current slot
                 if morpheme["slot"] == self.slots[slot_index]["slot"]:  # If the slot agrees with the slot
                     if check_morpheme_word_match(morpheme, input_word):  # If the morpheme fits
                         # Process the morpheme and input_word, and adjust slot_index accordingly
@@ -281,17 +323,39 @@ class Parser:
 
         return valid_sequences
 
+    # Enters parsing mode, where you enter a word, and it parses it for you
+    def enter_parsing_mode(self, show_agreement_info):
+        print("You just entered parsing mode!")
+        while True:
+            input_word = input("Enter a word to be parsed, or press enter to quit: ")
+
+            # Check to see if user wants to quit
+            if not input_word:
+                print("Exiting parsing mode.")
+                break
+
+            # Parse the word
+            sequences = self.parse(input_word)
+            print_sequences(input_word, sequences, show_agreement_info)
+
 
 def main():
     # Open the parser object
-    parser = Parser("Languages/italian.txt")
+    parser = Parser("Languages/swahili_verbs_STROVE_basics.txt")
+
+    # Confirm desire to continue
+    confirm_successful_loading()
 
     # Add to it
     # parser.add_morphemes()
 
-    # Find the sequences
-    parses = parser.parse("amo")
-    print("Your sequences are ", parses)
+    # Find the predefined sequences
+    # input_word = "amo"
+    # parses = parser.parse(input_word)
+    # print_sequences(input_word, parses)
+
+    # Enter parsing mode
+    parser.enter_parsing_mode(show_agreement_info=False)
 
     # Close/update the file
     parser.update_file()
@@ -299,3 +363,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# TODO: Ask whether mw has to do with the following morpheme or the verb root
+# TODO: Implement negation

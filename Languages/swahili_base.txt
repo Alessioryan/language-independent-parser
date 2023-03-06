@@ -1,0 +1,21 @@
+["swahili", [{
+		"slot": "pos_subj",
+		"is_required": true
+	}, {
+		"slot": "tam",
+		"is_required": true
+	}, {
+		"slot": "obj",
+		"is_required": false
+	}, {
+		"slot": "rel",
+		"is_required": false
+	}, {
+		"slot": "vroot",
+		"is_required": true
+	}, {
+		"slot": "char_vowel",
+		"is_required": false
+	}],
+	[]
+]

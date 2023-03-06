@@ -1,0 +1,238 @@
+["swahili", [{
+		"slot": "pos_subj",
+		"is_required": true
+	}, {
+		"slot": "tam",
+		"is_required": true
+	}, {
+		"slot": "obj",
+		"is_required": false
+	}, {
+		"slot": "rel",
+		"is_required": false
+	}, {
+		"slot": "vroot",
+		"is_required": true
+	}, {
+		"slot": "char_vowel",
+		"is_required": false
+	}],
+	[{
+			"form": "ni",
+			"slot": "pos_subj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "1sg.sbj"
+		},
+		{
+			"form": "u",
+			"slot": "pos_subj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "2sg.sbj"
+		},
+		{
+			"form": "a",
+			"slot": "pos_subj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "3sg.sbj"
+		},
+		{
+			"form": "tu",
+			"slot": "pos_subj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "1pl.sbj"
+		},
+		{
+			"form": "m",
+			"slot": "pos_subj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "2pl.sbj"
+		},
+		{
+			"form": "wa",
+			"slot": "pos_subj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "3pl.sbj"
+		},
+		{
+			"form": "na",
+			"slot": "tam",
+			"properties": [],
+			"agreements": [],
+			"gloss": "prs"
+		},
+		{
+			"form": "li",
+			"slot": "tam",
+			"properties": [],
+			"agreements": [],
+			"gloss": "pst"
+		},
+		{
+			"form": "me",
+			"slot": "tam",
+			"properties": [],
+			"agreements": [],
+			"gloss": "pst.prf"
+		},
+		{
+			"form": "ta",
+			"slot": "tam",
+			"properties": [],
+			"agreements": [],
+			"gloss": "fut"
+		},
+		{
+			"form": "ni",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "1sg.obj"
+		},
+		{
+			"form": "ku",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "2sg.obj"
+		},
+		{
+			"form": "m",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [["cons_init_vroot","vroot"]],
+			"gloss": "3sg.obj"
+		},
+		{
+			"form": "mw",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [["vowel_init_vroot","vroot"]],
+			"gloss": "3sg.obj"
+		},
+		{
+			"form": "tu",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "1pl.obj"
+		},
+		{
+			"form": "wa",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "2pl.obj"
+		},
+		{
+			"form": "wa",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "3pl.obj"
+		},
+		{
+			"form": "ji",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "refl"
+		},
+		{
+			"form": "ye",
+			"slot": "rel",
+			"properties": [],
+			"agreements": [],
+			"gloss": "hum.sg.rel"
+		},
+		{
+			"form": "o",
+			"slot": "rel",
+			"properties": [],
+			"agreements": [],
+			"gloss": "hum.pl.rel"
+		},
+		{
+			"form": "on",
+			"slot": "vroot",
+			"properties": ["vowel_init_vroot"],
+			"agreements": [],
+			"gloss": "see"
+		},
+		{
+			"form": "end",
+			"slot": "vroot",
+			"properties": ["vowel_init_vroot"],
+			"agreements": [],
+			"gloss": "go"
+		},
+		{
+			"form": "sem",
+			"slot": "vroot",
+			"properties": ["cons_init_vroot"],
+			"agreements": [],
+			"gloss": "say"
+		},
+		{
+			"form": "onge",
+			"slot": "vroot",
+			"properties": ["vowel_init_vroot"],
+			"agreements": [],
+			"gloss": "speak"
+		},
+		{
+			"form": "zungumz",
+			"slot": "vroot",
+			"properties": ["cons_init_vroot"],
+			"agreements": [],
+			"gloss": "converse"
+		},
+		{
+			"form": "lip",
+			"slot": "vroot",
+			"properties": ["cons_init_vroot"],
+			"agreements": [],
+			"gloss": "pay"
+		},
+		{
+			"form": "som",
+			"slot": "vroot",
+			"properties": ["cons_init_vroot"],
+			"agreements": [],
+			"gloss": "study"
+		},
+		{
+			"form": "tok",
+			"slot": "vroot",
+			"properties": ["cons_init_vroot"],
+			"agreements": [],
+			"gloss": "come.from"
+		},
+		{
+			"form": "",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [],
+			"gloss": ""
+		},
+		{
+			"form": "",
+			"slot": "rel",
+			"properties": [],
+			"agreements": [],
+			"gloss": ""
+		},
+		{
+			"form": "a",
+			"slot": "char_vowel",
+			"properties": [],
+			"agreements": [],
+			"gloss": "chr.vwl"
+		}
+	]
+]

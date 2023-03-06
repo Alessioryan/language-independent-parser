@@ -1,0 +1,7 @@
+["italian", [{
+	"slot": "vroot",
+	"is_required": true
+}, {
+	"slot": "sfx",
+	"is_required": true
+}], "PUT MORPHEMES HERE"]
