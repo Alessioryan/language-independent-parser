@@ -81,7 +81,7 @@ def print_sequences(input_word, sequences, show_agreement_info):
 
 
 # Prints out a morpheme sequence
-def print_sequence(sequence, show_agreement_info):
+def print_sequence(sequence, show_agreement_info=False):
     morpheme_breakdown = ""
     morpheme_glosses = ""
     for morpheme in sequence:
@@ -250,7 +250,8 @@ class Parser:
             # Open the file
             with open(self.file_name, 'w') as file_descriptor:
                 json.dump((self.language, self.slots, self.morphemes), file_descriptor)
-            print("Successfully closed file")
+            print("Successfully updated file")
+        print("Successfully closed file")
 
     # Given a word, returns a list containing morpheme sequences stored in a list
     # The morpheme sequences may not be grammatically valid, but would match the regex of the morphemes
@@ -341,18 +342,13 @@ class Parser:
 
 def main():
     # Open the parser object
-    parser = Parser("Languages/swahili_verbs_STROVE_basics.txt")
+    parser = Parser("Languages/swahili_neg.txt")
 
     # Confirm desire to continue
     confirm_successful_loading()
 
     # Add to it
     # parser.add_morphemes()
-
-    # Find the predefined sequences
-    # input_word = "amo"
-    # parses = parser.parse(input_word)
-    # print_sequences(input_word, parses)
 
     # Enter parsing mode
     parser.enter_parsing_mode(show_agreement_info=False)
@@ -364,5 +360,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-# TODO: Ask whether mw has to do with the following morpheme or the verb root
-# TODO: Implement negation

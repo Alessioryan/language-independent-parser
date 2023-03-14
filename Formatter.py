@@ -16,4 +16,4 @@ def format_text(text):
 
 
 if __name__ == '__main__':
-    format_file("Languages/swahili_verbs_STROVE_basics.txt")
+    format_file("Languages/swahili_neg.txt")

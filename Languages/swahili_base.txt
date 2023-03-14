@@ -1,5 +1,5 @@
 ["swahili", [{
-		"slot": "pos_subj",
+		"slot": "sbj",
 		"is_required": true
 	}, {
 		"slot": "tam",
@@ -11,11 +11,11 @@
 		"slot": "rel",
 		"is_required": false
 	}, {
-		"slot": "vroot",
+		"slot": "vr",
 		"is_required": true
 	}, {
-		"slot": "char_vowel",
-		"is_required": false
+		"slot": "fv",
+		"is_required": true
 	}],
 	[]
 ]

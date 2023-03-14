@@ -1,0 +1,343 @@
+["swahili", [{
+		"slot": "sbj",
+		"is_required": true
+	}, {
+		"slot": "tam",
+		"is_required": true
+	}, {
+		"slot": "obj",
+		"is_required": false
+	}, {
+		"slot": "rel",
+		"is_required": false
+	}, {
+		"slot": "vr",
+		"is_required": true
+	}, {
+		"slot": "fv",
+		"is_required": true
+	}],
+	[{
+			"form": "ni",
+			"slot": "sbj",
+			"properties": ["pos"],
+			"agreements": [],
+			"gloss": "1sg.sbj.pos"
+		},
+		{
+			"form": "u",
+			"slot": "sbj",
+			"properties": ["pos"],
+			"agreements": [],
+			"gloss": "2sg.sbj.pos"
+		},
+		{
+			"form": "a",
+			"slot": "sbj",
+			"properties": ["pos"],
+			"agreements": [],
+			"gloss": "3sg.sbj.pos"
+		},
+		{
+			"form": "tu",
+			"slot": "sbj",
+			"properties": ["pos"],
+			"agreements": [],
+			"gloss": "1pl.sbj.pos"
+		},
+		{
+			"form": "m",
+			"slot": "sbj",
+			"properties": ["pos"],
+			"agreements": [],
+			"gloss": "2pl.sbj.pos"
+		},
+		{
+			"form": "wa",
+			"slot": "sbj",
+			"properties": ["pos"],
+			"agreements": [],
+			"gloss": "3pl.sbj.pos"
+		},
+		{
+			"form": "si",
+			"slot": "sbj",
+			"properties": ["neg"],
+			"agreements": [],
+			"gloss": "1sg.sbj.neg"
+		},
+		{
+			"form": "hu",
+			"slot": "sbj",
+			"properties": ["neg"],
+			"agreements": [],
+			"gloss": "2sg.sbj.neg"
+		},
+		{
+			"form": "ha",
+			"slot": "sbj",
+			"properties": ["neg"],
+			"agreements": [],
+			"gloss": "3sg.sbj.neg"
+		},
+		{
+			"form": "hatu",
+			"slot": "sbj",
+			"properties": ["neg"],
+			"agreements": [],
+			"gloss": "1pl.sbj.neg"
+		},
+		{
+			"form": "ham",
+			"slot": "sbj",
+			"properties": ["neg"],
+			"agreements": [],
+			"gloss": "2pl.sbj.neg"
+		},
+		{
+			"form": "hawa",
+			"slot": "sbj",
+			"properties": ["neg"],
+			"agreements": [],
+			"gloss": "3pl.sbj.neg"
+		},
+		{
+			"form": "",
+			"slot": "tam",
+			"properties": ["prs"],
+			"agreements": [["neg","sbj"]],
+			"gloss": "prs.neg"
+		},
+		{
+			"form": "ku",
+			"slot": "tam",
+			"properties": ["non_prs"],
+			"agreements": [["neg","sbj"]],
+			"gloss": "pst.neg"
+		},
+		{
+			"form": "ji",
+			"slot": "tam",
+			"properties": ["non_prs"],
+			"agreements": [["neg","sbj"]],
+			"gloss": "pst.prf.neg"
+		},
+		{
+			"form": "na",
+			"slot": "tam",
+			"properties": ["prs"],
+			"agreements": [["pos","sbj"]],
+			"gloss": "prs.pos"
+		},
+		{
+			"form": "li",
+			"slot": "tam",
+			"properties": ["non_prs"],
+			"agreements": [["pos","sbj"]],
+			"gloss": "pst.pos"
+		},
+		{
+			"form": "me",
+			"slot": "tam",
+			"properties": ["non_prs"],
+			"agreements": [["pos","sbj"]],
+			"gloss": "pst.prf.pos"
+		},
+		{
+			"form": "ta",
+			"slot": "tam",
+			"properties": ["non_prs"],
+			"agreements": [],
+			"gloss": "fut"
+		},
+		{
+			"form": "ni",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "1sg.obj"
+		},
+		{
+			"form": "ku",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "2sg.obj"
+		},
+		{
+			"form": "m",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [["cons_init_vr","vr"]],
+			"gloss": "3sg.obj"
+		},
+		{
+			"form": "mw",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [["vowel_init_vr","vr"]],
+			"gloss": "3sg.obj"
+		},
+		{
+			"form": "tu",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "1pl.obj"
+		},
+		{
+			"form": "wa",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "2pl.obj"
+		},
+		{
+			"form": "wa",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "3pl.obj"
+		},
+		{
+			"form": "ji",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [],
+			"gloss": "refl"
+		},
+		{
+			"form": "ye",
+			"slot": "rel",
+			"properties": [],
+			"agreements": [],
+			"gloss": "hum.sg.rel"
+		},
+		{
+			"form": "o",
+			"slot": "rel",
+			"properties": [],
+			"agreements": [],
+			"gloss": "hum.pl.rel"
+		},
+		{
+			"form": "on",
+			"slot": "vr",
+			"properties": ["vowel_init_vr","a_class"],
+			"agreements": [],
+			"gloss": "see"
+		},
+		{
+			"form": "end",
+			"slot": "vr",
+			"properties": ["vowel_init_vr","a_class"],
+			"agreements": [],
+			"gloss": "go"
+		},
+		{
+			"form": "sem",
+			"slot": "vr",
+			"properties": ["cons_init_vr","a_class"],
+			"agreements": [],
+			"gloss": "say"
+		},
+		{
+			"form": "onge",
+			"slot": "vr",
+			"properties": ["vowel_init_vr","a_class"],
+			"agreements": [],
+			"gloss": "speak"
+		},
+		{
+			"form": "zungumz",
+			"slot": "vr",
+			"properties": ["cons_init_vr","a_class"],
+			"agreements": [],
+			"gloss": "converse"
+		},
+		{
+			"form": "ish",
+			"slot": "vr",
+			"properties": ["vowel_init_vr","i_class"],
+			"agreements": [],
+			"gloss": "live"
+		},
+		{
+			"form": "hitaj",
+			"slot": "vr",
+			"properties": ["cons_init_vr","i_class"],
+			"agreements": [],
+			"gloss": "need"
+		},
+		{
+			"form": "lip",
+			"slot": "vr",
+			"properties": ["cons_init_vr","a_class"],
+			"agreements": [],
+			"gloss": "pay"
+		},
+		{
+			"form": "som",
+			"slot": "vr",
+			"properties": ["cons_init_vr","a_class"],
+			"agreements": [],
+			"gloss": "study"
+		},
+		{
+			"form": "pend",
+			"slot": "vr",
+			"properties": ["cons_init_vr","a_class"],
+			"agreements": [],
+			"gloss": "like"
+		},
+		{
+			"form": "tok",
+			"slot": "vr",
+			"properties": ["cons_init_vr","a_class"],
+			"agreements": [],
+			"gloss": "come.from"
+		},
+		{
+			"form": "",
+			"slot": "obj",
+			"properties": [],
+			"agreements": [],
+			"gloss": ""
+		},
+		{
+			"form": "",
+			"slot": "rel",
+			"properties": [],
+			"agreements": [],
+			"gloss": ""
+		},
+		{
+			"form": "a",
+			"slot": "fv",
+			"properties": [],
+			"agreements": [["a_class","vr"],["pos","sbj"]],
+			"gloss": "ind"
+		},
+		{
+			"form": "a",
+			"slot": "fv",
+			"properties": [],
+			"agreements": [["a_class","vr"],["neg","sbj"],["non_prs","tam"]],
+			"gloss": "ind"
+		},
+		{
+			"form": "i",
+			"slot": "fv",
+			"properties": [],
+			"agreements": [["a_class","vr"],["neg","sbj"],["prs","tam"]],
+			"gloss": "neg.prs.ind"
+		},
+		{
+			"form": "i",
+			"slot": "fv",
+			"properties": [],
+			"agreements": [["i_class","vr"]],
+			"gloss": "ind.i"
+		}
+	]
+]
